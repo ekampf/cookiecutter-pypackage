@@ -7,6 +7,33 @@ try:
 except ImportError:
     from distutils.core import setup
 
+import codecs
+import os
+import re
+
+def get_build_number():
+    fname = 'build.info'
+    if os.path.isfile(fname):
+        with open(fname) as f:
+            build_number = f.read()
+            build_number = re.sub("[^a-z0-9]+","", build_number, flags=re.IGNORECASE)
+            return '.' + build_number
+            
+    return ''
+    
+def get_version(package_name):
+    build_number = get_build_number()
+    
+    version_re = re.compile(r"^__version__ = [\"']([\w_.-]+)[\"']$")
+    package_components = package_name.split('.')
+    init_path = os.path.join(root_dir, *(package_components + ['__init__.py']))
+    with codecs.open(init_path, 'r', 'utf-8') as f:
+        for line in f:
+            match = version_re.match(line[:-1])
+            if match:
+                return match.groups()[0]+build_number
+
+    return '{{ cookiecutter.version }}' + build_number
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -24,7 +51,7 @@ test_requirements = [
 
 setup(
     name='{{ cookiecutter.repo_name }}',
-    version='{{ cookiecutter.version }}',
+    version=get_version('{{ cookiecutter.version }}'),
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name }}",
