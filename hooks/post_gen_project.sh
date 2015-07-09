@@ -1,4 +1,4 @@
 #!/bin/bash
 make deps
-make test
+make test-all
 make lint
