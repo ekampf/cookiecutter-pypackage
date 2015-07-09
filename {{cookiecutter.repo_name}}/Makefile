@@ -14,6 +14,12 @@ help:
 	@echo "dist - package"
 	@echo "install - install the package to the active Python's site-packages"
 
+.venv:
+	if [ ! -e ".venv/bin/activate_this.py" ] ; then virtualenv --clear .venv ; fi
+	
+deps: .venv
+	PYTHONPATH=.venv ; . .venv/bin/activate && .venv/bin/pip install -U -r requirements.txt
+
 clean: clean-build clean-pyc clean-test
 
 clean-build:
@@ -35,13 +41,13 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 {{ cookiecutter.repo_name }} tests
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate &&  flake8 {{ cookiecutter.repo_name }} tests
 
 test:
-	python setup.py test
+	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && python setup.py test
 
 test-all:
-	tox
+	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && tox
 
 coverage:
 	coverage run --source {{ cookiecutter.repo_name }} setup.py test
