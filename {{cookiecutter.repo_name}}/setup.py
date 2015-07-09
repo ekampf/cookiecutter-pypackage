@@ -53,7 +53,7 @@ test_requirements = [
 
 setup(
     name='{{ cookiecutter.repo_name }}',
-    version=get_version('{{ cookiecutter.version }}'),
+    version=get_version('{{ cookiecutter.repo_name }}'),
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name }}",
