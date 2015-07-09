@@ -11,6 +11,8 @@ import codecs
 import os
 import re
 
+root_dir = os.path.abspath(os.path.dirname(__file__))
+
 def get_build_number():
     fname = 'build.info'
     if os.path.isfile(fname):
