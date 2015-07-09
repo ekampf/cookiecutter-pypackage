@@ -41,7 +41,7 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate &&  flake8 {{ cookiecutter.repo_name }} tests
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && flake8 {{ cookiecutter.repo_name }} tests
 
 test:
 	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && python setup.py test
@@ -50,10 +50,10 @@ test-all:
 	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && tox
 
 coverage:
-	coverage run --source {{ cookiecutter.repo_name }} setup.py test
-	coverage report -m
-	coverage html
-	open htmlcov/index.html
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage run --source {{ cookiecutter.repo_name }} setup.py test
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage report -m
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage html
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && open htmlcov/index.html
 
 docs:
 	rm -f docs/{{ cookiecutter.repo_name }}.rst
@@ -64,13 +64,13 @@ docs:
 	open docs/_build/html/index.html
 
 release: clean
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py sdist upload
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel upload
 
 dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py sdist
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel
 	ls -l dist
 
 install: clean
-	python setup.py install
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py install
