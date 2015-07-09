@@ -5,12 +5,12 @@ cookiecutter-pypackage
 Cookiecutter template for a Python package. See https://github.com/audreyr/cookiecutter.
 
 * Free software: BSD license
-* VirtualEnv_ support: All *Makefile* commands use a virtual env set in .venv folder under the project root
+* VirtualEnv support: All *Makefile* commands use a virtual env set in .venv folder under the project root
 * Travis-CI_: Ready for Travis Continuous integration testing
 * Tox_ testing: Setup to easily test for python 2.7, 3.4 and PyPy_
 * Sphinx_ docs: Documentation raedy for generation with, for example, ReadTheDocs_
 * Wheel_ support: Use the newest python package distribution standard from the get go
-* Support for Automatic_ Build_ Versioning_ - 
+* Support for Automatic Build Versioning - 
 
 Usage
 -----
