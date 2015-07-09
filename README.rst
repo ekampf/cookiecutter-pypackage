@@ -26,6 +26,8 @@ Then:
 * Run `tox` to make sure all tests pass.
 * Release your package the standard Python way.
 
+Recommendation: if you're doing it a lot you might find it comfortable to add a *.cookiecutterrc* file as shown here - https://cookiecutter.readthedocs.org/en/latest/advanced_usage.html#user-config-0-7-0
+
 Not Exactly What You Want?
 --------------------------
 
