@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
+import sys
 import codecs
 import os
 import re
+from setuptools import setup
+from setuptools.command.test import test as TestCommand
 
 root_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -42,13 +39,24 @@ with open('README.rst') as readme_file:
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
+    
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        import pytest
+        errcode = pytest.main(self.test_args)
+        sys.exit(errcode)
 
 requirements = [
     # TODO: put package requirements here
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
+    'pytest'
 ]
 
 setup(
@@ -79,5 +87,6 @@ setup(
         "Programming Language :: Python :: 3.4",
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    cmdclass={'test': PyTest},
 )

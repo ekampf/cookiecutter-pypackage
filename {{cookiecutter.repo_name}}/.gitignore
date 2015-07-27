@@ -45,6 +45,9 @@ docs/_build
 # PyCharm
 .idea
 
+# Test results
+results.xml
+
 # Virtualenv
 .venv
 
